@@ -2,11 +2,13 @@ from embedchain import Pipeline as App
 from dotenv import load_dotenv
 from flask import Flask, request, render_template, jsonify
 import requests
+
+
 import os
 load_dotenv()
 app = Flask(__name__)
 
-os.environ['OPENAI_API_KEY'] = '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'
+os.environ['OPENAI_API_KEY'] = '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'
 
 config = {
     'app': {
@@ -281,4 +283,5 @@ def api_query():
         return jsonify({'error': 'Invalid question'})
 
 if __name__ == '__main__':
+    app.deploy()
     app.run(debug=True)
