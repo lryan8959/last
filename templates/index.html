@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html data-controller="dark-mode" class="dark">
+
+<head>
+    <style type="text/css">
+        .turbo-progress-bar {
+            position: fixed;
+            display: block;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: #0076ff;
+            z-index: 2147483647;
+            transition:
+                width 300ms ease-out,
+                opacity 150ms 150ms ease-in;
+            transform: translate3d(0, 0, 0);
+        }
+    </style>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <title>Ycmentor</title>
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <meta name="csrf-param" content="authenticity_token">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+    <style>
+        @media screen and (max-width:600px) {
+            .sm-size {
+                margin-right: auto !important;
+                margin-left: auto;
+            }
+
+            .hundred {
+                width: 100% !important;
+            }
+        }
+        div,p,h1,h2,h3,h4,h6,h5,.ur{
+            font-family: 'Noto Nastaliq Urdu', serif !important;
+            text-align: right;
+        }
+
+
+    .loader {
+        border: 6px solid #f3f3f3;
+        border-top: 6px solid #000000;
+        background-color: #FFD40C !important;
+        position: absolute;
+        left: 50%;
+        top: 53%;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        display: none !important; /* Initially hide the loader */
+        
+    }
+   
+   
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="module">import "application"</script>
+    <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/thin/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/light/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/bold/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/fill/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/duotone/style.css">
+
+</head>
+
+<body class=" relative pb-40 bg-[#f9f9f9] dark:bg-[#121212]" cz-shortcut-listen="true">
+    <div class="loader mx-auto mt-4"></div>
+
+    <main class="container mx-auto px-5 flex flex-col">
+        <div id="flash">
+        </div>
+        <script>
+            window.addEventListener('turbo:load', function () {
+                // Select the target element
+                const targetElement = document.querySelector('#messages-list');
+
+                // Create a new instance of MutationObserver
+                const observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        // Check if new nodes are added to the target element
+                        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                            // Handle the event when a new child is added
+                            document.querySelector('#info-panel').classList.add('hidden');
+                            document.querySelector('#logo-light').classList.remove('h-12');
+                            document.querySelector('#logo-dark').classList.remove('h-12');
+                            document.querySelector('#logo-dark').classList.add('h-8');
+                            document.querySelector('#logo-light').classList.add('h-8');
+                            // You can perform any desired actions here
+                        }
+                    });
+                });
+
+                // Configure and start observing the target element
+                const config = { childList: true };
+                observer.observe(targetElement, config);
+            });
+        </script>
+        <div class="max-w-4xl mx-auto py-10 w-full flex flex-col">
+            <div class="flex flex-row items-center mx-4 relative">
+            
+                <a class="justify-self-center mx-auto" href="/"><img
+                        class="justify-self-center dark:hidden mx-auto transition-all h-[120px]" id="logo-dark"
+                        src="{{ url_for('static', filename='logo.png') }}">
+
+                    <img class="hidden justify-self-center dark:hidden mx-auto transition-all h-[120px]" id="logo-dark"
+                        src="{{ url_for('static', filename='logo.png') }}">
+
+                </a>
+                <form class="button_to" action="/conversations"><button
+                        class="hidden md:block -mt-4 absolute text-sm dark:text-neutral-400 right-0 justify-self-end rounded-md bg-neutral-100 border border-neutral-200 p-2 transition cursor-pointer hover:bg-neutral-100 dark:bg-neutral-800 dark:border-zinc-700 dark:hover:bg-zinc-700"
+                        type="submit" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">New conversation</button><input type="hidden" name="authenticity_token"
+                        value="yqnM_znV1b-bimBWxB9IQKbJGTyfoks1ZQnmGgV0skzUEIOLnpT2tbwBp-r4qQ0VdOWCMcaFHFx1iCjJPandCA"
+                        autocomplete="off"></form>
+            </div>
+
+
+        </div>
+        <div id="dynamic-content"
+            class="bg-white shadow-sm rounded-lg py-10 px-8 mt-10 border border-neutral-200 max-w-2xl transition-all duration-500 mx-auto dark:bg-neutral-800 dark:border-zinc-700">
+
+            <div class="text-lg font-semibold text-neutral-900 mb-4 dark:text-neutral-100">
+                السلام علیکم
+            </div>
+            <div class="uf text-md text-neutral-600 dark:text-neutral-400" >
+                قبلہ سید سرفراز شاہ کی کتب سے تربیت یافتہ: ای آئی چیٹ بوٹ جو آپ کے دینی سوالات کا جواب دے سکتا ہے 
+            </div>
+            <div style="
+    margin-left: auto;" class="text-sm text-neutral-600 mt-10 dark:text-neutral-400" >
+    :یہاں سوالات کی چند مثالیں ہیں جو آپ پوچھ سکتے ہیں
+                </div>
+            <div class="flex flex-col gap-2 mt-4" data-controller="examples" >
+                
+                <div class="rounded-md border border-neutral-200 p-2 text-sm text-neutral-600 w-max px-4 cursor-pointer dark:text-neutral-400 dark:border-zinc-700 dark:hover:bg-zinc-700 transition hover:scale-110"
+                    data-action="click->examples#ask" data-question="اگر آپ کے مرشد سے غلطی ہو جائے تو کیا کرنا چاہیے۔" style="margin-left: auto !important;">
+                    اگر آپ کے مرشد سے غلطی ہو جائے تو کیا کرنا چاہیے۔
+                </div>
+                
+                <div class="rounded-md border border-neutral-200 p-2 text-sm text-neutral-600 w-max px-4 cursor-pointer dark:text-neutral-400 dark:border-zinc-700 dark:hover:bg-zinc-700 transition hover:scale-110"
+                data-action="click->examples#ask" data-question=" شرک کیا ہے؟" style="margin-left: auto;">
+                    شرک کیا ہے؟                </div>
+              
+                <div style="margin-left: auto !important;" class="rounded-md border border-neutral-200 p-2 text-sm text-neutral-600 w-max px-4 cursor-pointer dark:text-neutral-400 dark:border-zinc-700 dark:hover:bg-zinc-700 transition hover:scale-110"
+                    data-action="click->examples#ask" data-question="اگر آپ کے مرشد سے غلطی ہو جائے تو کیا کرنا چاہیے۔" style="margin-left: auto;">
+                   اگر آپ کے مرشد سے غلطی ہو جائے تو کیا کرنا چاہیے۔
+                </div>
+
+
+
+            </div>
+        </div>
+        </div>
+
+        </div>
+        <turbo-cable-stream-source channel="Turbo::StreamsChannel"
+            signed-stream-name="IloybGtPaTh2ZVdOdFpXNTBiM0l2UTI5dWRtVnljMkYwYVc5dUx6SXhNREE1Ig==--50cceb16d7e7c1a911e86521f300c651e204468413f527f06d5c5bf1900c3c89"
+            connected=""></turbo-cable-stream-source>
+
+    </main>
+
+    <div class="shadow-lg rounded-lg p-5 border border-neutral-200 fixed bottom-16 w-full max-w-4xl mx-auto inset-x-0 z-50 bg-white/50 backdrop-blur-md dark:bg-black/70 dark:border-neutral-800"
+        data-controller="form">
+        <form class="flex flex-row gap-4" style="flex-direction: row-reverse !important;" id="new_message" data-action="turbo:submit-end->form#clear"
+            action="/conversations" accept-charset="UTF-8"><input type="hidden" name="authenticity_token"
+                value="_0BZwOax1-xOe7nPootR5VW8oQACZG1bgJdkLOLgWt5MeuODzN89bp1uZwabJUpc0azPdGpXQVcZFiMXEcJFCw"
+                autocomplete="off"><input autocomplete="off" placeholder="کس طرح کی عبادت میں شرک ہوتا ہے؟
+..."
+                class="w-full bg-transparent dark:text-white border-0 ring-0 outline-none focus:ring-0" html="rows 3"
+                type="text" name="message[body]" id="message_body" style="text-align: right;line-height: initial !important">
+            <button name="button" type="submit" onclick="showLoader()" >
+                <div
+                    class="bg-[#FFD40C] shadow-md text-black h-10 w-10 rounded-lg flex items-center justify-center text-lg transition hover:scale-110 hover:text-white hover:bg-[#000]" >
+                    <i class="ph-bold ph-paper-plane-tilt"></i>
+                </div>
+            </button>
+        </form>
+    </div>
+    <div
+        class="fixed bottom-5 text-sm text-neutral-800 rounded-full mx-auto inset-x-0 w-max px-4 bg-neutral-100 border border-neutral-200 p-2 transition-all duration-500 dark:bg-neutral-800 dark:border-zinc-700 dark:text-neutral-400">
+        Visit our Official Site
+        <span class="text-cyan-500">
+            <a target="_blank" href="https://kahayfaqeer.ai">kahayfaqeer
+            </a></span>
+    </div>
+
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Function to update content based on API response
+            function updateContent(question, answer, sources) {
+                // Get the container element
+                const container = document.getElementById('dynamic-content');
+
+                // Convert sources array to a string for display
+                const sourcesString = Array.isArray(sources) ? sources.map(source => source[1]).join(', ') : '';
+
+
+                // Update the content dynamically
+                container.innerHTML = `
+                    <div class="text-lg font-semibold text-neutral-900 mb-4 dark:text-neutral-100">
+                        You: ${question}
+                    </div>
+                    <div class="text-md text-neutral-600 dark:text-neutral-400">
+                        ${answer}
+                    </div>
+                    <div class="text-sm text-neutral-600 mt-2 dark:text-neutral-400">
+                       <br> <h3>Source:<h3> <a class="text-black" target="__blank" href="${sources}"><i class="fa-solid fa-book text-[##357B89]" style="font-size:1rem;color:#357B89;"></i> Read More<a>
+                    </div>
+                `;
+            }
+
+            // Form submission logic
+            const form = document.getElementById('new_message');
+            const questionInput = document.getElementById('message_body');
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const question = questionInput.value;
+
+                fetch('/api/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        question: question,
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        updateContent(question, data.answer, data.sources);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+
+            // Example: Update content when a sample question is asked
+            document.querySelector('[data-action="click->examples#ask"]').addEventListener('click', function () {
+                const question = this.getAttribute('data-question');
+
+                fetch('/api/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        question: question,
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        updateContent(question, data.answer, data.sources);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    </script>
+    <script>
+    function showLoader() {
+        // Show the loader
+        const loader = document.querySelector('.loader');
+        loader.style.display = 'block';
+
+        // Hide the loader after 3 seconds
+        setTimeout(function () {
+            loader.style.display = 'none';
+        }, 3000);
+    }
+</script>
+</body>
+
+</html>
